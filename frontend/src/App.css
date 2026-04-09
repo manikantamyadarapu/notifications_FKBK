@@ -1,0 +1,297 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+:root {
+  --login-bg: radial-gradient(circle at 20% 20%, #235f93 0%, #0f4b7a 34%, #3a8b96 66%, #69b681 100%);
+  --brand-subtitle: #d6e5f4;
+  --card-bg: #edf2f7;
+  --card-text: #2f3e52;
+  --sub-text: #6b7280;
+  --label-text: #334155;
+  --input-bg: #f1f5f9;
+  --input-border: #d6deea;
+  --input-text: #0f172a;
+  --signin-bg: #45b765;
+  --signin-hover: #3aa45a;
+  --dashboard-bg: #eef3f7;
+  --heading: #1e293b;
+  --muted: #475569;
+  --pill-bg: #e2e8f0;
+  --pill-text: #1f2937;
+  --panel-bg: #ffffff;
+  --panel-border: #dce3ef;
+  --table-border: #e2e8f0;
+  --th-bg: #eff6ff;
+  --empty: #64748b;
+  --theme-toggle-bg: #111827;
+  --theme-toggle-text: #ffffff;
+  --topbar-bg: #ffffff;
+  --topbar-border: #dce3ef;
+  --app-text: #0f172a;
+  --table-text: #1e293b;
+}
+
+[data-theme="dark"] {
+  --login-bg: radial-gradient(circle at 20% 20%, #122237 0%, #0b1220 35%, #1b2f3e 68%, #254434 100%);
+  --brand-subtitle: #bfccda;
+  --card-bg: #1f2937;
+  --card-text: #e5edf7;
+  --sub-text: #9ca3af;
+  --label-text: #cbd5e1;
+  --input-bg: #0f172a;
+  --input-border: #334155;
+  --input-text: #e2e8f0;
+  --signin-bg: #16a34a;
+  --signin-hover: #15803d;
+  --dashboard-bg: #0f172a;
+  --heading: #f1f5f9;
+  --muted: #94a3b8;
+  --pill-bg: #1e293b;
+  --pill-text: #e2e8f0;
+  --panel-bg: #111827;
+  --panel-border: #334155;
+  --table-border: #334155;
+  --th-bg: #1e293b;
+  --empty: #94a3b8;
+  --theme-toggle-bg: #e2e8f0;
+  --theme-toggle-text: #0f172a;
+  --topbar-bg: #111827;
+  --topbar-border: #334155;
+  --app-text: #e2e8f0;
+  --table-text: #e2e8f0;
+}
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--login-bg);
+  font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+.brand-logo {
+  width: min(340px, 62vw);
+  margin-bottom: 4px;
+}
+
+.brand-subtitle {
+  color: var(--brand-subtitle);
+  margin: 2px 0 18px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.login-card {
+  width: min(380px, 92vw);
+  background: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: 0 18px 38px rgba(7, 30, 56, 0.35);
+  padding: 24px;
+}
+
+.login-card h2 {
+  margin: 0;
+  text-align: center;
+  color: var(--card-text);
+}
+
+.login-card .sub {
+  text-align: center;
+  margin: 6px 0 20px;
+  color: var(--sub-text);
+  font-size: 13px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+  color: var(--label-text);
+  font-size: 13px;
+}
+
+input {
+  border: 1px solid var(--input-border);
+  border-radius: 6px;
+  height: 38px;
+  padding: 0 10px;
+  font-size: 14px;
+  background: var(--input-bg);
+  color: var(--input-text);
+}
+
+.signin-btn {
+  width: 100%;
+  height: 36px;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 600;
+  background: var(--signin-bg);
+  cursor: pointer;
+}
+
+.signin-btn:hover {
+  background: var(--signin-hover);
+}
+
+.error {
+  color: #b91c1c;
+  margin-top: -4px;
+  margin-bottom: 10px;
+}
+
+.dashboard-page {
+  min-height: 100vh;
+  padding: 20px;
+  background: var(--dashboard-bg);
+  font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  background: var(--topbar-bg);
+  border: 1px solid var(--topbar-border);
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+
+.brand-block {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-block h1 {
+  margin: 0;
+  color: var(--heading);
+  font-size: 20px;
+}
+
+.top-logo {
+  width: 150px;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  filter: brightness(0) saturate(100%) invert(26%) sepia(32%) saturate(1524%)
+    hue-rotate(186deg) brightness(93%) contrast(91%);
+}
+
+[data-theme="dark"] .top-logo {
+  filter: none;
+}
+
+.status {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.topbar-right {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.user-pill {
+  background: var(--pill-bg);
+  color: var(--pill-text);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 12px;
+}
+
+.logout-btn,
+.panel button {
+  border: none;
+  border-radius: 6px;
+  background: #2563eb;
+  color: #fff;
+  cursor: pointer;
+  padding: 7px 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.logout-btn {
+  background: #ef4444;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 12px;
+}
+
+.panel {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.panel h3 {
+  margin-top: 0;
+  color: var(--label-text);
+}
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  max-height: 380px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border-bottom: 1px solid var(--table-border);
+  padding: 9px;
+  font-size: 13px;
+  text-align: left;
+  color: var(--table-text);
+}
+
+th {
+  background: var(--th-bg);
+}
+
+.empty {
+  text-align: center;
+  color: var(--empty);
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 10px;
+  right: 14px;
+  z-index: 1000;
+  border: 1px solid var(--topbar-border);
+  border-radius: 6px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 12px;
+  background: var(--topbar-bg);
+  color: var(--label-text);
+  box-shadow: none;
+}

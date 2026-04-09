@@ -1,0 +1,117 @@
+openapi: 3.0.3
+info:
+  title: Notification Service API
+  version: "1.0.0"
+  description: Tamper event ingestion and notification APIs.
+servers:
+  - url: http://localhost:8080
+paths:
+  /event:
+    post:
+      summary: Ingest tamper event and generate notification
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [meter_id, tamper_code]
+              properties:
+                meter_id:
+                  type: string
+                tamper_code:
+                  type: integer
+                timestamp:
+                  type: string
+                  format: date-time
+      responses:
+        "200":
+          description: Event accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  event_id:
+                    type: integer
+                  meter_id:
+                    type: string
+                  tamper_code:
+                    type: integer
+                  timestamp:
+                    type: string
+                    format: date-time
+  /notifications:
+    get:
+      summary: Get paginated notifications
+      parameters:
+        - in: query
+          name: meter_id
+          schema:
+            type: string
+        - in: query
+          name: tamper_code
+          schema:
+            type: integer
+        - in: query
+          name: type
+          schema:
+            type: string
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+        - in: query
+          name: page_size
+          schema:
+            type: integer
+            default: 25
+      responses:
+        "200":
+          description: Paginated notifications
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id: { type: integer }
+                        meter_id: { type: string }
+                        tamper_code: { type: integer }
+                        tamper_description: { type: string }
+                        type: { type: string }
+                        level: { type: integer }
+                        message: { type: string }
+                        status: { type: string }
+                        timestamp: { type: string, format: date-time }
+                  pagination:
+                    type: object
+                    properties:
+                      page: { type: integer }
+                      page_size: { type: integer }
+                      total_items: { type: integer }
+                      total_pages: { type: integer }
+  /ws:
+    get:
+      summary: WebSocket endpoint for realtime notifications
+      responses:
+        "101":
+          description: Switching protocols
+
