@@ -14,7 +14,6 @@ export default function DashboardPage() {
   const [eventForm, setEventForm] = useState({
     meter_id: "MTR002",
     tamper_code: 13,
-    timestamp: new Date().toISOString().slice(0, 16),
   });
 
   const [filters, setFilters] = useState({
@@ -51,7 +50,7 @@ export default function DashboardPage() {
       await sendEvent({
         meter_id: eventForm.meter_id.trim(),
         tamper_code: Number(eventForm.tamper_code),
-        timestamp: new Date(eventForm.timestamp).toISOString(),
+        timestamp: new Date().toISOString(),
       });
       await loadData();
       setStatus("Event sent");
@@ -98,15 +97,7 @@ export default function DashboardPage() {
               required
             />
           </label>
-          <label>
-            Timestamp
-            <input
-              type="datetime-local"
-              value={eventForm.timestamp}
-              onChange={(e) => setEventForm((p) => ({ ...p, timestamp: e.target.value }))}
-              required
-            />
-          </label>
+          <p>Timestamp will be captured automatically when the event is sent.</p>
           <button type="submit">Send Event</button>
         </form>
 
