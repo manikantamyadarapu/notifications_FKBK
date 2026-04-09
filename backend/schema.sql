@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS tamper_events (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   meter_id TEXT NOT NULL,
   tamper_code INTEGER NOT NULL,
+  event_occur INTEGER NOT NULL DEFAULT 0, -- 0=start, 1=end
   timestamp TIMESTAMP NOT NULL,
   processed BOOLEAN NOT NULL DEFAULT FALSE,
   FOREIGN KEY (meter_id) REFERENCES meters(meter_id)

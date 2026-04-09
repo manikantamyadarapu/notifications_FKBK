@@ -21,6 +21,10 @@ paths:
                   type: string
                 tamper_code:
                   type: integer
+                event_occur:
+                  type: integer
+                  description: 0 for tamper start, 1 for tamper end
+                  enum: [0, 1]
                 timestamp:
                   type: string
                   format: date-time
@@ -39,6 +43,8 @@ paths:
                   meter_id:
                     type: string
                   tamper_code:
+                    type: integer
+                  event_occur:
                     type: integer
                   timestamp:
                     type: string

@@ -58,6 +58,47 @@ func (s *NotificationService) ProcessEvent(e models.TamperEvent) (models.Notific
 		e.Timestamp = time.Now()
 	}
 
+	if e.EventOccur == 1 {
+		existing, found, err := s.NotifRepo.GetLatestPending(e.MeterID, e.TamperCode)
+		if err != nil {
+			return models.Notification{}, err
+		}
+		if !found {
+			return models.Notification{
+				MeterID:           e.MeterID,
+				TamperCode:        e.TamperCode,
+				TamperDescription: desc,
+				Type:              "tamper",
+				Level:             1,
+				Status:            "resolved",
+				Message:           fmt.Sprintf("Tamper Alert: %s ended", desc),
+				Timestamp:         e.Timestamp,
+			}, nil
+		}
+
+		existing.Status = "resolved"
+		existing.Message = fmt.Sprintf("Tamper Alert: %s ended", desc)
+		existing.Timestamp = e.Timestamp
+		existing.ResolvedAt = &e.Timestamp
+		existing.TamperDescription = desc
+		if err := s.NotifRepo.UpdateNotification(&existing); err != nil {
+			return models.Notification{}, err
+		}
+		if s.WS != nil {
+			s.WS.Broadcast(existing)
+		}
+		return existing, nil
+	}
+
+	existing, found, err := s.NotifRepo.GetLatestPending(e.MeterID, e.TamperCode)
+	if err != nil {
+		return models.Notification{}, err
+	}
+	if found {
+		existing.TamperDescription = desc
+		return existing, nil
+	}
+
 	notification := models.Notification{
 		MeterID:           e.MeterID,
 		TamperCode:        e.TamperCode,
@@ -69,7 +110,7 @@ func (s *NotificationService) ProcessEvent(e models.TamperEvent) (models.Notific
 		Timestamp:         e.Timestamp,
 	}
 
-	if err := s.NotifRepo.SaveNotification(notification); err != nil {
+	if err := s.NotifRepo.SaveNotificationWithResult(&notification); err != nil {
 		return models.Notification{}, err
 	}
 

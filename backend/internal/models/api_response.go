@@ -5,6 +5,7 @@ type EventResponse struct {
 	EventID    uint   `json:"event_id"`
 	MeterID    string `json:"meter_id"`
 	TamperCode int    `json:"tamper_code"`
+	EventOccur int    `json:"event_occur"`
 	Timestamp  string `json:"timestamp"`
 }
 

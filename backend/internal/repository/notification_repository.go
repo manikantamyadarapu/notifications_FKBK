@@ -15,6 +15,29 @@ func (r *NotificationRepository) SaveNotification(n models.Notification) error {
 	return r.DB.Create(&n).Error
 }
 
+func (r *NotificationRepository) SaveNotificationWithResult(n *models.Notification) error {
+	return r.DB.Create(n).Error
+}
+
+func (r *NotificationRepository) GetLatestPending(meterID string, tamperCode int) (models.Notification, bool, error) {
+	var n models.Notification
+	err := r.DB.
+		Where("meter_id = ? AND tamper_code = ? AND status = ?", meterID, tamperCode, "pending").
+		Order("timestamp desc").
+		First(&n).Error
+	if err == gorm.ErrRecordNotFound {
+		return models.Notification{}, false, nil
+	}
+	if err != nil {
+		return models.Notification{}, false, err
+	}
+	return n, true, nil
+}
+
+func (r *NotificationRepository) UpdateNotification(n *models.Notification) error {
+	return r.DB.Save(n).Error
+}
+
 func (r *NotificationRepository) GetAll() ([]models.Notification, error) {
 	var list []models.Notification
 	err := r.DB.Order("timestamp desc").Find(&list).Error

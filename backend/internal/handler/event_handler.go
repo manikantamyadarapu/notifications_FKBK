@@ -31,6 +31,10 @@ func (h *EventHandler) Receive(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "missing fields", http.StatusBadRequest)
 		return
 	}
+	if e.EventOccur != 0 && e.EventOccur != 1 {
+		http.Error(w, "event_occur must be 0 (start) or 1 (end)", http.StatusBadRequest)
+		return
+	}
 
 	if h.Service == nil {
 		http.Error(w, "service unavailable", http.StatusInternalServerError)
@@ -53,6 +57,7 @@ func (h *EventHandler) Receive(w http.ResponseWriter, r *http.Request) {
 		EventID:    eventID,
 		MeterID:    e.MeterID,
 		TamperCode: e.TamperCode,
+		EventOccur: e.EventOccur,
 		Timestamp:  utils.FormatIST(created.Timestamp),
 	})
 }
